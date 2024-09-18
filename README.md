@@ -92,7 +92,7 @@ select write shell script execute shell
 we have to be in the jenkins home directory so we will write the shell script as below
 
 cd ${JENKINS_HOME}/workspace/code-clone/
-docker build -t project_image:${BUILD_NUMBER} .
+sudo docker build -t project_image:${BUILD_NUMBER} .
 echo " The Build is Done "
 
 create third job 
