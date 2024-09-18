@@ -129,6 +129,9 @@ sudo visudo
 Add the following line at the end of the file:
 jenkins ALL=(ALL) NOPASSWD: ALL
 
+make sure of any syntax error Dockerfile not dockerfile
+
+
 
 
 
