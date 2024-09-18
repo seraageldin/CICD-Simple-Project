@@ -20,6 +20,22 @@ Access jenkins server using the following URL http:localhost:8080
 for RedHat and Centos machines
 
 create the jENKINS REPO
+add its official repository to your system
+
+Create a new repo file for Jenkins in /etc/yum.repos.d/
+
+sudo tee /etc/yum.repos.d/jenkins.repo <<EOF
+[jenkins]
+name=Jenkins-stable
+baseurl=http://pkg.jenkins.io/redhat-stable
+gpgcheck=1
+gpgkey=https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+EOF
+
+Import the Jenkins GPG key
+
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
 
 curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo
 
