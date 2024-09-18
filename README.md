@@ -122,6 +122,13 @@ once you edit anything in the repo code or add a file the cd/cd will run
 
 youy can open 3 tabs of jenkisn for each job and watch them execute automatically when the time comes after you edit the repo
 
+The best approach is to configure passwordless sudo for the Jenkins user, so sudo commands do not require a password during automation. Here’s how to do it
+
+sudo visudo
+
+Add the following line at the end of the file:
+jenkins ALL=(ALL) NOPASSWD: ALL
+
 
 
 
