@@ -131,7 +131,10 @@ jenkins ALL=(ALL) NOPASSWD: ALL
 
 make sure of any syntax error Dockerfile not dockerfile
 
-
+you can use the ifconfig 
+and then get teh docker IP
+and then put it in the browser and you can see your landing page 
+you can go and make nay uodat ein the index.html and it will reflect to your website after jenkins reads it 
 
 
 
