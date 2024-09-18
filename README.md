@@ -52,3 +52,9 @@ sudo firewall-cmd --permanent --add-port=8080/tcp
 sudo firewall-cmd --reload
 
 Access jenkins server using the following URL http:localhost:8080
+
+Login into jenkins 
+use the below password fro th ementioned path
+
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
