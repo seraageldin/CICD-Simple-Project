@@ -1,67 +1,68 @@
 ## CICD-Simple-Project steps using freestyle 
 
-##Simple CI/CD project using Docker file and HTML index file for deployment 
+## Simple CI/CD project using Docker file and HTML index file for deployment 
 
-## The first Step installing Jenkins on your machine, however, we need to install Java first too
-find all steps for installing jenkins for different OS on the installing-jenkins file in this repo
+## The first Step is installing Jenkins on your machine, however, we need to install Java first too
+find all the steps for installing Jenkins for different OS on the installing-Jenkins file in this repo
 
-after opening the jenkins we need to install plugins
+## After opening the Jenkins we need to install plugins
 
 then we will need to create jobs 
 we will create 3 Jobs 
-Job for Code-clone
-Job for Build
-Job for Deploy
+1- Job for Code-clone
+2- Job for Build
+3- Job for Deploy
 
-make sure docker file has teh image 
+## Make sure the docker file has the image 
 FROM httpd
-COPY index.html /usr/local/apache2/htdocs
+COPY index.html /usr/local/apache2/htdocs // you can get any other image but our base image will be httpd
 
-you need to make a clone from this repo to your machine using 
-git clone + repo url 
+## You need to make a clone from this repo to your machine using 
+git clone + repo URL 
 
-Step 1
-create job for code clone type free style
+## Step 1
+
+create a job for code clone type freestyle
 inside the job configuration click on git
-then you will clone the repo http from github by copying the HTTP
+then you will clone the repo http from GitHub by copying the HTTP
 paste it in the git field
-make sure teh branch name is correct ( since you will be working on a branch from this repo enter the branch name )
-build type will by Pull SCM
-H/5 * * * *  ( this means that jenkins will check for updates every 5 minutes only if there was any changed on the repo )
+make sure the branch name is correct ( since you will be working on a branch from this repo enter the branch name )
+build type will Pull SCM
+H/5 * * * *  ( this means that Jenkins will check for updates every 5 minutes only if there is any changed on the repo )
 the above means pull every 5 minutes 
-add timestamps of the job in build environment
-in post build action you can select option to send you an email after build is complete
+add timestamps of the job in the build environment
+in post build action you can select the option to send you an email after the build is complete
 save job 
 
-Step 2
+## Step 2
 if you ls /var/lib/jenkins/workspace
 you will check the jobs in a dir called workspaces that has all run jobs it will empty before any build 
 
-now teh job shall work and is sucess 
-if you cd in the workshop you will find the first job name code clone and if you cd inside it you will get the repo fiels listed here in github
+now the job shall work and be sucess 
+if you cd in the workshop you will find the first job name code clone and if you cd inside it you will get the repo fields listed here in GitHub
 
 create job number 2 
 
 name the job build and freestyle
 
 go to build options 
-add time stamp
+add timestamp
 select write shell script execute shell
-we have to be in the jenkins home directory so we will write the shell script as below
+we have to be in the Jenkins home directory so we will write the shell script below
 
-cd ${JENKINS_HOME}/workspace/code-clone/CICD-Simple-Project // we are using jenkins varriables 
+cd ${JENKINS_HOME}/workspace/code-clone/CICD-Simple-Project // we are using Jenkins variables 
 sudo docker build -t project_image:${BUILD_NUMBER} .
 echo " The Build is Done "
 
-Step 3 
+## Step 3 
 
-create third job 
+create the third job 
 deploy-docker
 add timestamp
-execute shell in build steps
+execute a shell in build steps
 note that during every build we will need to keep the port number the same so we will need to delete the old container
 
-sudo docker volume create vol_1 // you can add a volume if you need the data to be kept when the container is deleted and deployed on the new container 
+sudo docker volume create vol_1 //You can add a volume if you need the data to be kept when the container is deleted and deployed on the new container 
 sudo docker run -d --name cont_1 -p 80:80 -v vol_1:/usr/local/apache2 project_image:${BUILD_NUMBER}
 
 save job
@@ -73,13 +74,13 @@ post build action
 build other projects
 select the build job and save
 
-this means when clone is finished build job will be called to start
+this means when the clone is finished build job will be called to start
 
 then go to build job configuration
 post build action 
 select job docker_deploy and save
 
-if you go to your system and check docker images you wont find the image that will we create and there should be no container 
+if you go to your system and check the docker images you won't find the image that we will create and there should be no container 
 once you edit anything in the repo code or add a file the cd/cd will run
 
 You can open 3 tabs of Jenkins for each job and watch them execute automatically when the time comes after you edit the repo
@@ -90,11 +91,11 @@ sudo visudo
 Add the following line at the end of the file
 jenkins ALL=(ALL) NOPASSWD: ALL
 
-## Ensure teh below
-make sure of any syntax error Dockerfile not dockerfile
-ensure teh user is sudoers unless you can use sudo in the script 
+## Ensure the below
+make sure of any syntax error Dockerfile, not dockerfile
+ensure the user is sudoers unless you can use sudo in the script 
 you can use the ifconfig 
 and then get teh docker IP
-after all jobs are succeded you can open the localhost:80 to view the webiste from your browser 
+after all jobs are succeded you can open the localhost:80 to view the website from your browser 
 and then put it in the browser and you can see your landing page 
-you can go and make nay uodat ein the index.html on your machine and commit it to the repo branch and it will reflect to your website after jenkins reads it 
+you can go and make any update in the index.html on your machine and commit it to the repo branch and it will reflect your website after jenkins reads it 
