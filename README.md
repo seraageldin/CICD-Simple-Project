@@ -120,7 +120,7 @@ select docker_deploy and save
 if you go to your system and check docker images you wont find the image that will we create and there should be no container 
 once you edit anything in the repo code or add a file the cd/cd will run
 
-
+youy can open 3 tabs of jenkisn for each job and watch them execute automatically when the time comes after you edit the repo
 
 
 
