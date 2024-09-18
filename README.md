@@ -58,3 +58,68 @@ use the below password fro th ementioned path
 
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
+after opening the jenkins we need to install plugins
+
+then we will need to create jobs 
+
+1- create job for code clone type free style
+then you will clone the repo http from github by copying the HTTP
+paste it in the git field
+make sure teh branch name is correct ( default - main )
+build type will by Pull SCM
+H/5 * * * *  
+the above means pull every 5 minutes 
+add timestamps of the job in build environment
+in post build action you can select option to send you an email after build is complete
+save job 
+
+if you ls /var/lib/jenkins/workspace
+you will check the jobs in a dir called workspaces that has all run jobs
+
+now teh job shall work and is sucess 
+if you cd in the workshop you will find the first job name code clone and if you cd inside it you will get the repo fiels listed here in github
+
+create job number 2 
+
+name the job build and freestyle
+
+go to build options 
+add time stamp
+select write shell script execute shell
+we have to be in the jenkins home directory so we will write the shell script as below
+
+cd ${JENKINS_HOME}/workspace/code-clone/
+docker build -t project_image:${BUILD_NUMBER} .
+echo " The Build is Done "
+
+create third job 
+deploy-docker
+add timestamp
+execute shell in build steps
+note that during every build we will need to keep the port number the same so we will need to delete the old container
+
+docker volume create vol_1
+docker run -d --name cont_1 -p 80:80 -v vol_1:/usr/local/apache2 project_image:${BUILD_NUMBER}
+
+save job
+
+go to code clone job configurations
+post build action 
+build other projects
+select build job and save
+
+this means when clone is finished build job will be called to start
+
+go to build job configuration
+post build action 
+select docker_deploy and save
+
+if you go to your system and check docker images you wont find the image that will we create and there should be no container 
+once you edit anything in the repo code or add a file the cd/cd will run
+
+
+
+
+
+
+
