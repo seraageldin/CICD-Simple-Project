@@ -24,12 +24,14 @@ git clone + repo URL
 
 create a job for code clone type freestyle
 inside the job configuration click on git
+
 then you will clone the repo http from GitHub by copying the HTTP
 paste it in the git field
 make sure the branch name is correct ( since you will be working on a branch from this repo enter the branch name )
+
 build type will Pull SCM
 H/5 * * * *  ( this means that Jenkins will check for updates every 5 minutes only if there is any changed on the repo )
-the above means pull every 5 minutes 
+
 add timestamps of the job in the build environment
 in post build action you can select the option to send you an email after the build is complete
 save job 
@@ -38,7 +40,7 @@ save job
 if you ls /var/lib/jenkins/workspace
 you will check the jobs in a dir called workspaces that has all run jobs it will empty before any build 
 
-now the job shall work and be sucess 
+now the job shall work and be success 
 if you cd in the workshop you will find the first job name code clone and if you cd inside it you will get the repo fields listed here in GitHub
 
 create job number 2 
