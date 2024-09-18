@@ -91,7 +91,7 @@ add time stamp
 select write shell script execute shell
 we have to be in the jenkins home directory so we will write the shell script as below
 
-cd ${JENKINS_HOME}/workspace/code-clone/
+cd ${JENKINS_HOME}/workspace/code-clone/CICD-Simple-Project
 sudo docker build -t project_image:${BUILD_NUMBER} .
 echo " The Build is Done "
 
