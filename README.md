@@ -61,6 +61,9 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 after opening the jenkins we need to install plugins
 
 then we will need to create jobs 
+make sure docker file has teh image 
+FROM httpd
+COPY index.html /usr/local/apache2/htdocs
 
 1- create job for code clone type free style
 then you will clone the repo http from github by copying the HTTP
