@@ -15,7 +15,7 @@ we will create 3 Jobs
 
 ## Make sure the docker file has the image 
 FROM httpd
-COPY index.html /usr/local/apache2/htdocs // you can get any other image but our base image will be httpd
+COPY index.html /usr/local/apache2/htdocs   // you can get any other image but our base image will be httpd
 
 ## You need to make a clone from this repo to your machine using 
 git clone + repo URL 
@@ -30,7 +30,7 @@ paste it in the git field
 make sure the branch name is correct ( since you will be working on a branch from this repo enter the branch name )
 
 build type will Pull SCM
-H/5 * * * *  ( this means that Jenkins will check for updates every 5 minutes only if there is any changed on the repo )
+H/5 * * * *  ( this means that Jenkins will check for updates every 5 minutes only if there is any change on the repo )
 
 add timestamps of the job in the build environment
 in post build action you can select the option to send you an email after the build is complete
@@ -65,8 +65,9 @@ execute a shell in build steps
 note that during every build we will need to keep the port number the same so we will need to delete the old container
 
 sudo docker volume create vol_1 //You can add a volume if you need the data to be kept when the container is deleted and deployed on the new container 
-sudo docker run -d --name cont_1 -p 80:80 -v vol_1:/usr/local/apache2 project_image:${BUILD_NUMBER}
-
+sudo docker rm cont_${BUILD_NUMBER}
+sudo docker run -d --name cont_${BUILD_NUMBER} -p 80:80 -v vol_1:/usr/local/apache2 project_image:${BUILD_NUMBER}
+// note that with each new build number, we need to delete the old container in order to keep using the same port 
 save job
 
 ## Important steps to link jobs 
