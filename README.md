@@ -51,11 +51,11 @@ go to build options
 add timestamp
 select write shell script execute shell
 we have to be in the Jenkins home directory so we will write the shell script below
-
+```bash
 cd ${JENKINS_HOME}/workspace/code-clone/CICD-Simple-Project // we are using Jenkins variables 
 sudo docker build -t project_image:${BUILD_NUMBER} .
 echo " The Build is Done "
-
+```
 ## Step 3 
 
 create the third job 
