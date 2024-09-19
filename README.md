@@ -90,6 +90,14 @@ You can open 3 tabs of Jenkins for each job and watch them execute automatically
 
 The best approach is to configure passwordless sudo for the Jenkins user, so sudo commands do not require a password during automation. Here’s how to do it
 
+to overwrite the data in the volume for the old container 
+docker cp /var/lib/jenkins/workspace/project-w-pipeline/index.html cont_1:/usr/local/apache2/htdocs/index.html 
+note that you need to stop the container and run it again 
+docker stop cont_1 
+docker start cont_1
+
+hence you will see the new index file displayed to your website
+
 sudo visudo
 Add the following line at the end of the file
 jenkins ALL=(ALL) NOPASSWD: ALL
