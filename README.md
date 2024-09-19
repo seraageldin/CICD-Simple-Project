@@ -63,10 +63,11 @@ deploy-docker
 add timestamp
 execute a shell in build steps
 note that during every build we will need to keep the port number the same so we will need to delete the old container
-
+```bash
 sudo docker volume create vol_1 //You can add a volume if you need the data to be kept when the container is deleted and deployed on the new container 
 sudo docker rm cont_${BUILD_NUMBER}
 sudo docker run -d --name cont_${BUILD_NUMBER} -p 80:80 -v vol_1:/usr/local/apache2 project_image:${BUILD_NUMBER}
+```
 // note that with each new build number, we need to delete the old container in order to keep using the same port 
 save job
 
@@ -91,17 +92,19 @@ You can open 3 tabs of Jenkins for each job and watch them execute automatically
 The best approach is to configure passwordless sudo for the Jenkins user, so sudo commands do not require a password during automation. Here’s how to do it
 
 to overwrite the data in the volume for the old container 
-docker cp /var/lib/jenkins/workspace/project-w-pipeline/index.html cont_1:/usr/local/apache2/htdocs/index.html 
+```bash
+docker cp /var/lib/jenkins/workspace/project-w-pipeline/index.html cont_1:/usr/local/apache2/htdocs/index.html
+```
 note that you need to stop the container and run it again 
+```bash
 docker stop cont_1 
 docker start cont_1
-
+```
 hence you will see the new index file displayed to your website
-
-sudo visudo
-Add the following line at the end of the file
+```bash
+sudo visudo #Add the following line at the end of the file
 jenkins ALL=(ALL) NOPASSWD: ALL
-
+```
 ## Ensure the below
 make sure of any syntax error Dockerfile, not dockerfile
 ensure the user is sudoers unless you can use sudo in the script 
