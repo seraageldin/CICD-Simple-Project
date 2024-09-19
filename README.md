@@ -64,11 +64,13 @@ add timestamp
 execute a shell in build steps
 note that during every build we will need to keep the port number the same so we will need to delete the old container
 ```bash
-sudo docker volume create vol_1 //You can add a volume if you need the data to be kept when the container is deleted and deployed on the new container 
-sudo docker rm cont_${BUILD_NUMBER}
+sudo docker volume create vol_1 //You can add a volume if you need the data to be kept when the container is deleted and deployed on the new container
+sudo var=$((${BUILD_NUMBER}-1))
+docker stop cont_$var
+docker rm cont_$var
 sudo docker run -d --name cont_${BUILD_NUMBER} -p 80:80 -v vol_1:/usr/local/apache2 project_image:${BUILD_NUMBER}
 ```
-// note that with each new build number, we need to delete the old container in order to keep using the same port 
+// note that with each new build number, we need to delete the old container to keep using the same port 
 save job
 
 ## Important steps to link jobs 
