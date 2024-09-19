@@ -15,7 +15,7 @@ we will create 3 Jobs
 
 ## Make sure the docker file has the image 
 FROM httpd
-COPY index.html /usr/local/apache2/htdocs   // you can get any other image but our base image will be httpd
+COPY index.html /usr/local/apache2/htdocs   #you can get any other image but our base image will be httpd
 
 ## You need to make a clone from this repo to your machine using 
 git clone + repo URL 
@@ -52,7 +52,7 @@ add timestamp
 select write shell script execute shell
 we have to be in the Jenkins home directory so we will write the shell script below
 ```bash
-cd ${JENKINS_HOME}/workspace/code-clone/CICD-Simple-Project // we are using Jenkins variables 
+cd ${JENKINS_HOME}/workspace/code-clone/CICD-Simple-Project #we are using Jenkins variables 
 sudo docker build -t project_image:${BUILD_NUMBER} .
 echo " The Build is Done "
 ```
@@ -64,7 +64,7 @@ add timestamp
 execute a shell in build steps
 note that during every build we will need to keep the port number the same so we will need to delete the old container
 ```bash
-sudo docker volume create vol_1 //You can add a volume if you need the data to be kept when the container is deleted and deployed on the new container
+sudo docker volume create vol_1  #You can add a volume if you need the data to be kept when the container is deleted and deployed on the new container
 sudo var=$((${BUILD_NUMBER}-1))
 docker stop cont_$var
 docker rm cont_$var
